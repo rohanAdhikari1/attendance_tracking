@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       () => Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: const Color.fromARGB(255, 212, 91, 105),
+          backgroundColor: Colors.amber[900],
           title: const Center(
             child: Text(
               'Welcome Mr. XYZ',
@@ -65,8 +65,8 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.zero,
             children: [
               DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 212, 91, 105),
+                decoration: BoxDecoration(
+                  color: Colors.amber[900],
                 ),
                 child: CircleAvatar(
                   radius: 50,
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildTabIcon(IconData icon, String label, int index) {
     final isSelected = controller.selectedIndex.value == index;
-    final color = isSelected ? Colors.amber[800] : Colors.grey;
+    final color = isSelected ? Colors.amber[900] : Colors.grey;
 
     return Expanded(
       child: InkWell(

@@ -9,272 +9,150 @@ class WorksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
+        height: double.infinity,
+        child: Column(
           children: [
-            Text(
-              'Messages From Admin',
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                color: Color.fromARGB(255, 244, 244, 244),
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                // letterSpacing: 1.0,
+            // Header Bar (Optional)
+            Container(
+              height: deviceHeight * 0.05,
+              margin: const EdgeInsets.symmetric(horizontal: 15.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+                border: Border.all(color: Colors.amber[900]!),
+              ),
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                'Task Tracker',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Task List
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.only(bottom: 20),
+                itemCount: 3, // Replace with your actual task list length
+                itemBuilder: (context, index) {
+                  // Example mock data — make this dynamic if needed
+                  final title = 'Design Project: Homepage UI';
+                  final description =
+                      'Design a responsive homepage for the mobile app with header, features, and contact form.';
+                  final status = index == 2 ? 'Started' : 'Not Started';
+
+                  return Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 8,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        border: Border.all(color: Colors.amber[900]!),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Title
+                          Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+
+                          // Description
+                          Text(
+                            description,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Status
+                          Row(
+                            children: [
+                              const Text(
+                                'Status:',
+                                style: TextStyle(fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                status,
+                                style: TextStyle(
+                                  color: status == 'Started'
+                                      ? Colors.orange
+                                      : Colors.redAccent,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Action Buttons
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              if (status == 'Not Started') // Only show Start if not started
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    // TODO: start task logic
+                                  },
+                                  icon: const Icon(Icons.play_arrow),
+                                  label: const Text('Start'),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    foregroundColor: Colors.white,
+                                  ),
+                                ),
+                              ElevatedButton.icon(
+                                onPressed: () {
+                                  // TODO: finish task logic
+                                },
+                                icon: const Icon(Icons.check),
+                                label: const Text('Finish'),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green,
+                                  foregroundColor: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],
         ),
-        leading: IconButton(
-          color: Colors.white,
-          icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ),
-            );
-          },
-        ),
-        backgroundColor: const Color.fromARGB(255, 212, 91, 105),
-      ),
-
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(0, 25, 0,0),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                 SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: deviceHeight * 0.02),
-          Container(
-            padding: const EdgeInsets.all(20.0),
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  blurRadius: 10.0,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Date : 25/11/2024'),
-                SizedBox(height: deviceHeight * 0.002),
-                const Text(
-                  'Your Leave Application Has Been Submitted Successfully!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          ),        
-        ],
       ),
     );
   }
