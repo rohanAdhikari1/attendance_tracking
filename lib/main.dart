@@ -39,10 +39,16 @@ class SplashLogic extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
     return Obx(() {
-      FlutterNativeSplash.remove();
-      return authController.isLoggedIn.value
-          ? const HomePage()
-          : const Login();
+      if (authController.isLoading.value) {
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      } else {
+        FlutterNativeSplash.remove();
+        return authController.isLoggedIn.value
+            ? const HomePage()
+            : const Login();
+      }
     });
   }
 }

@@ -128,14 +128,16 @@ class WorksPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 8),
-                            Text(
-                              task.description,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
+                            if (task.description.trim().isNotEmpty) ...[
+                              const SizedBox(height: 8),
+                              Text(
+                                task.description,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black87,
+                                ),
                               ),
-                            ),
+                            ],
                             const SizedBox(height: 16),
                             Row(
                               children: [

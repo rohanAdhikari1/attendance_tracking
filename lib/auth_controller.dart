@@ -3,6 +3,7 @@ import 'package:attendance_tracking/services/user_service.dart';
 
 class AuthController extends GetxController {
   var isLoggedIn = false.obs;
+  var isLoading = true.obs;
   final userService = UserService();
 
   @override
@@ -16,5 +17,6 @@ class AuthController extends GetxController {
     isLoggedIn.value = (userData['token']?.isNotEmpty ?? false) &&
         (userData['id'] != 0) &&
         (userData['full_name']?.isNotEmpty ?? false);
+    isLoading.value = false;
   }
 }
