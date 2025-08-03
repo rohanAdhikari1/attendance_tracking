@@ -6,7 +6,6 @@ class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     return SafeArea(
