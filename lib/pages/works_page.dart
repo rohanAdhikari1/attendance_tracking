@@ -35,13 +35,10 @@ class WorksPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: const Text(
                 'Task Tracker',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: deviceHeight * 0.01),
 
             // Task List
             Expanded(
@@ -56,8 +53,10 @@ class WorksPage extends StatelessWidget {
                   final status = index == 2 ? 'Started' : 'Not Started';
 
                   return Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                      vertical: 8.0,
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
@@ -83,9 +82,8 @@ class WorksPage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: deviceHeight * 0.01),
 
-                          // Description
                           Text(
                             description,
                             style: const TextStyle(
@@ -93,7 +91,7 @@ class WorksPage extends StatelessWidget {
                               color: Colors.black87,
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: deviceHeight * 0.02),
 
                           // Status
                           Row(
@@ -113,17 +111,16 @@ class WorksPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: deviceHeight * 0.01),
 
                           // Action Buttons
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              if (status == 'Not Started') // Only show Start if not started
+                              if (status ==
+                                  'Not Started') // Only show Start if not started
                                 ElevatedButton.icon(
-                                  onPressed: () {
-                                    // TODO: start task logic
-                                  },
+                                  onPressed: () {},
                                   icon: const Icon(Icons.play_arrow),
                                   label: const Text('Start'),
                                   style: ElevatedButton.styleFrom(
@@ -132,9 +129,7 @@ class WorksPage extends StatelessWidget {
                                   ),
                                 ),
                               ElevatedButton.icon(
-                                onPressed: () {
-                                  // TODO: finish task logic
-                                },
+                                onPressed: () {},
                                 icon: const Icon(Icons.check),
                                 label: const Text('Finish'),
                                 style: ElevatedButton.styleFrom(
