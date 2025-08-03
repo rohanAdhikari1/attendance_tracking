@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       () => Scaffold(
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
-          backgroundColor: Colors.amber[900],
+          backgroundColor: const Color.fromRGBO(255, 111, 0, 1),
           title: const Center(
             child: Text(
               'Welcome Mr. XYZ',
