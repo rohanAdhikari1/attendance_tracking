@@ -38,6 +38,7 @@ class WorksPageController extends GetxController {
         },
       );
       Map<String, dynamic> decodedJson = response.data;
+      print(decodedJson);
       if (decodedJson['success'] == true) {
         List data = decodedJson['data'];
         tasks.value = data.map((json) => Task.fromJson(json)).toList();

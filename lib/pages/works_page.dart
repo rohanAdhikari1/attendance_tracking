@@ -17,16 +17,43 @@ class WorksPage extends StatelessWidget {
         }
 
         if (!controller.isEnrolled.value) {
-          return const Center(
-            child: Text(
-              'You are not enrolled to any company.',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'You are not enrolled to any company.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: controller.fetchTasks,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Refresh'),
+                ),
+              ],
             ),
           );
         }
 
         if (controller.tasks.isEmpty) {
-          return const Center(child: Text('No tasks available.'));
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'No tasks available.',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton.icon(
+                  onPressed: controller.fetchTasks,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Refresh'),
+                ),
+              ],
+            ),
+          );
         }
 
         return Container(
