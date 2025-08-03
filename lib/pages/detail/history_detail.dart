@@ -1,16 +1,18 @@
-import 'package:attendance_tracking/pages/history_page.dart';
+import 'package:attendance_tracking/pages/home_page.dart';
 import 'package:flutter/material.dart';
+
 
 class HistoryDetail extends StatefulWidget {
   const HistoryDetail({super.key});
 
   @override
-  State<HistoryDetail> createState() => _HistoryDetailState();
+  State<HistoryDetail> createState() => _MyprofileState();
 }
 
-class _HistoryDetailState extends State<HistoryDetail> {
+class _MyprofileState extends State<HistoryDetail> {
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -18,7 +20,7 @@ class _HistoryDetailState extends State<HistoryDetail> {
           //  crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Your Work History',
+              'Your Work Detail',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -35,12 +37,251 @@ class _HistoryDetailState extends State<HistoryDetail> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => HistoryPage()),
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ),
             );
           },
         ),
         backgroundColor: const Color.fromARGB(255, 212, 91, 105),
       ),
+
+       body: ListView(
+        padding: const EdgeInsets.fromLTRB(0, 25, 0,0),
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                 SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: deviceHeight * 0.02),
+          Container(
+            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  blurRadius: 10.0,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Date : 25/11/2024'),
+                SizedBox(height: deviceHeight * 0.002),
+                const Text(
+                  'Your Leave Application Has Been Submitted Successfully!',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),        
+        ],
+      ),
+     
     );
   }
 }
