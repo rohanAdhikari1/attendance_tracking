@@ -1,3 +1,4 @@
+import 'package:attendance_tracking/controller/works_page_controller.dart';
 import 'package:attendance_tracking/repositories/api_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class ScanPageController extends GetxController {
   PermissionStatus? _permissionGranted;
   final locationData = Rx<LocationData?>(null);
   final RxBool isLoading = false.obs;
+  final RxBool isScanning = false.obs;
   final ApiRepository apiRepository= ApiRepository();
 
   @override
@@ -57,6 +59,10 @@ class ScanPageController extends GetxController {
         await prefs.setString('company_uid', uid);
         await prefs.setString('company_id', companyId);
         await prefs.setString('company_name', companyName);
+        print("Response data: ${result['data']}");
+        WorksPageController worksPageController = Get.find<WorksPageController>();
+        worksPageController.fetchTasks();
+        Get.back();
         Get.snackbar(
           "Success",
           "You can perform your task for this company.",
@@ -64,10 +70,9 @@ class ScanPageController extends GetxController {
           backgroundColor: Colors.green,
           colorText: Colors.white,
         );
-        print("Response data: ${result['data']}");
-        Get.back();
       } else {
         isLoading.value = false;
+        isScanning.value=true;
       }
     }
   }

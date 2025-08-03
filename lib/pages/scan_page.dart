@@ -38,6 +38,8 @@ class ScanPage extends StatelessWidget {
             MobileScanner(
               controller: scannerController,
               onDetect: (barcodeCapture) async {
+                if(controller.isScanning.value) return;
+                controller.isScanning.value=true;
                 final code = barcodeCapture.barcodes.firstOrNull;
                 final String? codeData = code!.rawValue;
                 if (codeData != null) {
