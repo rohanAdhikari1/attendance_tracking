@@ -2,6 +2,7 @@ import 'package:attendance_tracking/repositories/api_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScanPageController extends GetxController {
   Location location = Location();
@@ -49,6 +50,13 @@ class ScanPageController extends GetxController {
       };
       var result = await apiRepository.enrollUser(jsonData);
       if (result['success']) {
+        var companyData = result['data'];
+        String companyId = companyData['id'].toString();
+        String companyName = companyData['name'] ?? 'Unknown';
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('company_uid', uid);
+        await prefs.setString('company_id', companyId);
+        await prefs.setString('company_name', companyName);
         Get.snackbar(
           "Success",
           "You can perform your task for this company.",

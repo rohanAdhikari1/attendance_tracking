@@ -1,3 +1,4 @@
+import 'package:attendance_tracking/models/task.dart';
 import 'package:attendance_tracking/services/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -50,4 +51,25 @@ class ApiRepository{
       'data': null,
     };
   }
+
+  Future<List<Task>> fetchTasksByCompany(String companyUid) async {
+    try {
+      var response = await apiService.dio.post(
+        'tasks/list',
+        data: {"company_uid": companyUid},
+      );
+      Map<String, dynamic> decodedJson = response.data;
+      if (decodedJson['success'] == true) {
+        List data = decodedJson['data'];
+        return data.map((json) => Task.fromJson(json)).toList();
+      } else {
+        throw Exception("Failed to fetch tasks");
+      }
+    } catch (e) {
+      print('Error fetching tasks: $e');
+      rethrow;
+    }
+  }
+
+
 }

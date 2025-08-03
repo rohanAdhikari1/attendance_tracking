@@ -49,15 +49,7 @@ class _HomePageState extends State<HomePage> {
           ),
           elevation: 0,
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(7),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/me.jpg',
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-            ),
+           SizedBox(width: 10)
           ],
         ),
         drawer: Drawer(

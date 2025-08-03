@@ -1,15 +1,17 @@
-// ignore_for_file: deprecated_member_use
-
-import 'package:attendance_tracking/pages/home_page.dart' show HomePage;
+import 'package:attendance_tracking/controller/works_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class WorksPage extends StatelessWidget {
-  const WorksPage({super.key});
+  WorksPage({super.key});
+
+  final WorksPageController controller = Get.put(WorksPageController());
 
   @override
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     return SafeArea(
+<<<<<<< HEAD
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
         height: double.infinity,
@@ -99,15 +101,114 @@ class WorksPage extends StatelessWidget {
                               const Text(
                                 'Status:',
                                 style: TextStyle(fontWeight: FontWeight.w600),
+=======
+      child: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (!controller.isEnrolled.value) {
+          return const Center(
+            child: Text(
+              'You are not enrolled to any company.',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          );
+        }
+
+        if (controller.tasks.isEmpty) {
+          return const Center(child: Text('No tasks available.'));
+        }
+
+        return Container(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
+          height: double.infinity,
+          child: Column(
+            children: [
+              Container(
+                height: deviceHeight * 0.07,
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Enrolled Company:- ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Text(controller.company.value,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  itemCount: controller.tasks.length,
+                  itemBuilder: (context, index) {
+                    final task = controller.tasks[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 8,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          border: Border.all(color: Colors.amber[900]!),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              task.title,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+>>>>>>> origin/main
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                status,
-                                style: TextStyle(
-                                  color: status == 'Started'
-                                      ? Colors.orange
-                                      : Colors.redAccent,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              task.description,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                const Text(
+                                  'Status:',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
+<<<<<<< HEAD
                               ),
                             ],
                           ),
@@ -123,11 +224,47 @@ class WorksPage extends StatelessWidget {
                                   onPressed: () {},
                                   icon: const Icon(Icons.play_arrow),
                                   label: const Text('Start'),
+=======
+                                const SizedBox(width: 8),
+                                Text(
+                                  task.status,
+                                  style: TextStyle(
+                                    color: task.status == 'Started'
+                                        ? Colors.orange
+                                        : Colors.redAccent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                if (task.status == 'Not Started')
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      // TODO: Start Task
+                                    },
+                                    icon: const Icon(Icons.play_arrow),
+                                    label: const Text('Start'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blueAccent,
+                                      foregroundColor: Colors.white,
+                                    ),
+                                  ),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    // TODO: Finish Task
+                                  },
+                                  icon: const Icon(Icons.check),
+                                  label: const Text('Finish'),
+>>>>>>> origin/main
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent,
+                                    backgroundColor: Colors.green,
                                     foregroundColor: Colors.white,
                                   ),
                                 ),
+<<<<<<< HEAD
                               ElevatedButton.icon(
                                 onPressed: () {},
                                 icon: const Icon(Icons.check),
@@ -140,15 +277,21 @@ class WorksPage extends StatelessWidget {
                             ],
                           ),
                         ],
+=======
+                              ],
+                            ),
+                          ],
+                        ),
+>>>>>>> origin/main
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }
