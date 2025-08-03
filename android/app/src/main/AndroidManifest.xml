@@ -3,7 +3,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
-        android:label="Sale Management System"
+        android:label="S M S"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
