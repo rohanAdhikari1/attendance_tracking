@@ -1,8 +1,7 @@
+import 'package:attendance_tracking/repositories/api_repository.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:dio/dio.dart';
 import '../models/task.dart';
-import '../services/api_service.dart';
 
 class WorksPageController extends GetxController {
   var tasks = <Task>[].obs;
@@ -10,7 +9,7 @@ class WorksPageController extends GetxController {
   var company = "".obs;
   var isEnrolled = false.obs;
 
-  final Dio dio = ApiService().dio;
+  final ApiRepository apiRepository = ApiRepository();
 
   @override
   void onInit() {
@@ -31,16 +30,9 @@ class WorksPageController extends GetxController {
         return;
       }
       isEnrolled.value = true;
-      var response = await dio.get(
-        'tasks/list',
-        queryParameters: {
-          "company_uid": companyUid,
-        },
-      );
-      Map<String, dynamic> decodedJson = response.data;
-      print(decodedJson);
-      if (decodedJson['success'] == true) {
-        List data = decodedJson['data'];
+      var response = await apiRepository.fetchTasksByCompany(companyUid);
+      if (response['success'] == true) {
+        List data = response['data'];
         tasks.value = data.map((json) => Task.fromJson(json)).toList();
       } else {
         Get.snackbar("Error", "Failed to fetch tasks");
