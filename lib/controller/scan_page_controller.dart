@@ -45,6 +45,7 @@ class ScanPageController extends GetxController {
         "start_at": DateTime.now().toIso8601String(),
         "latitude": locationData.value!.latitude,
         "longitude": locationData.value!.longitude,
+        "local_time":DateTime.now().toIso8601String(),
       };
       var result = await apiRepository.enrollUser(jsonData);
       if (result['success']) {
