@@ -45,16 +45,50 @@ class ScanPage extends StatelessWidget {
                 }
               },
             ),
-            Column(children: [
-              Row(children: [
-                Text('Latitude:-'),
-                Text(controller.locationData.value?.latitude?.toString()??''),
-              ],),
-        Row(children: [
-        Text('Longitude:-'),
-        Text(controller.locationData.value?.longitude?.toString()??''),
-        ],)
-            ],)
+            // Positioned(
+            //   bottom: 20,
+            //   left: 20,
+            //   right: 20,
+            //   child: SafeArea(
+            //     child: Container(
+            //       padding: const EdgeInsets.all(12),
+            //       decoration: BoxDecoration(
+            //         color: Color.fromARGB(180, 0, 0, 0),
+            //         borderRadius: BorderRadius.circular(12),
+            //       ),
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Row(
+            //             children: [
+            //               const Text(
+            //                 'Latitude: ',
+            //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            //               ),
+            //               Text(
+            //                 controller.locationData.value?.latitude?.toString() ?? 'Unknown',
+            //                 style: const TextStyle(color: Colors.white),
+            //               ),
+            //             ],
+            //           ),
+            //           const SizedBox(height: 4),
+            //           Row(
+            //             children: [
+            //               const Text(
+            //                 'Longitude: ',
+            //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            //               ),
+            //               Text(
+            //                 controller.locationData.value?.longitude?.toString() ?? 'Unknown',
+            //                 style: const TextStyle(color: Colors.white),
+            //               ),
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ]
         );
       }
