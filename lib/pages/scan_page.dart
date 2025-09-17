@@ -37,13 +37,13 @@ class ScanPage extends StatelessWidget {
           children:[
             MobileScanner(
               controller: scannerController,
-              onDetect: (barcodeCapture) async {
+              onDetect: (barcodeCapture) {
                 if(controller.isScanning.value) return;
                 controller.isScanning.value=true;
                 final code = barcodeCapture.barcodes.firstOrNull;
                 final String? codeData = code!.rawValue;
                 if (codeData != null) {
-                  await controller.enrollUser(codeData);
+                  controller.forward(codeData);
                 }
               },
             ),
