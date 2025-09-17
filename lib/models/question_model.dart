@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class QuestionModel {
   final int id;
   final String questionText;

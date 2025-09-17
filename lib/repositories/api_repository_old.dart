@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ApiRepository{
+class ApiRepositoryOld{
   final ApiService apiService = ApiService();
 
   Future<Map<String, dynamic>> checkEnroll() async{

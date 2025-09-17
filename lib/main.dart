@@ -1,6 +1,7 @@
 import 'package:attendance_tracking/Pages/Auth/login.dart';
 import 'package:attendance_tracking/auth_controller.dart';
 import 'package:attendance_tracking/pages/home_page.dart';
+import 'package:attendance_tracking/pages/notification_page.dart';
 import 'package:attendance_tracking/pages/scan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/home', page: () => const HomePage()),
         GetPage(name: '/login', page: () => const Login()),
         GetPage(name: '/scan', page: () => ScanPage()),
+        GetPage(name: '/notification', page: () => NotificationPage(),
+            transition: Transition.rightToLeft,
+            transitionDuration: const Duration(milliseconds: 300)),
       ],
       debugShowCheckedModeBanner: false,
       home: SplashLogic(),
@@ -39,16 +43,20 @@ class SplashLogic extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
     return Obx(() {
-      if (authController.isLoading.value) {
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        );
-      } else {
-        FlutterNativeSplash.remove();
-        return authController.isLoggedIn.value
-            ? const HomePage()
-            : const Login();
-      }
+     if(authController.isOnline.value){
+       if (authController.isLoading.value) {
+         return const Scaffold(
+           body: Center(child: CircularProgressIndicator()),
+         );
+       } else {
+         FlutterNativeSplash.remove();
+         return authController.isLoggedIn.value
+             ? const HomePage()
+             : const Login();
+       }
+     }else{
+       return Placeholder();
+     }
     });
   }
 }

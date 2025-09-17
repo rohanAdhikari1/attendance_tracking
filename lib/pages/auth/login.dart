@@ -29,6 +29,7 @@ class _LoginState extends State<Login> {
       isLoading.value = true;
       var auth = AuthService();
       Map<String,dynamic> mRes = await auth.login(usernameController.text, passwordController.text);
+      print(mRes);
       if(mRes['type'] == MessageType.success){
         _error.value="";
         Get.off(() => HomePage(), preventDuplicates: true);

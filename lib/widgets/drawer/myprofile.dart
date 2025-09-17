@@ -1,11 +1,6 @@
-import 'package:attendance_tracking/Pages/Auth/login.dart' show Login;
 import 'package:attendance_tracking/pages/home_page.dart';
-import 'package:attendance_tracking/widgets/drawer/unable_to_attend.dart' show unableToAttend;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:employee_attendance/drawer/unable_to_attend.dart';
-// import 'package:employee_attendance/register/login.dart';
-// import 'package:employee_attendance/welcome.dart';
 
 class Myprofile extends StatefulWidget {
   const Myprofile({super.key});
@@ -50,86 +45,6 @@ class _MyprofileState extends State<Myprofile> {
         ),
         backgroundColor: const Color.fromARGB(255, 212, 91, 105),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(26, 222, 183, 55),
-              ),
-              child: CircleAvatar(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(80),
-                  child: Image.asset('assets/images/me.jpg'),
-                ),
-              ),
-            ),
-            ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text(
-                  'My Profile',
-                ),
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Myprofile(),
-                    ),
-                  );
-                }),
-            ListTile(
-              leading: const Icon(Icons.message),
-              title: const Text(
-                'Site Messages',
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.report),
-              title: const Text(
-                'Incident Reports',
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.block),
-              title: const Text(
-                'Unable to Attend',
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const unableToAttend(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.shopping_cart),
-              title: const Text(
-                'Consumables',
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text(
-                'Logout',
-              ),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
       body: Column(
         children: [
           SizedBox(
@@ -137,7 +52,8 @@ class _MyprofileState extends State<Myprofile> {
             ),
           const CircleAvatar(
             radius: 80,
-            backgroundImage: AssetImage('assets/images/me.jpg'),
+            backgroundColor: Colors.white,
+            backgroundImage: AssetImage('assets/images/default_avatar.png'),
           ),
           SizedBox(
             height:deviceHeight * 0.010,
@@ -159,7 +75,7 @@ class _MyprofileState extends State<Myprofile> {
               ),
               child: const ListTile(
                 title: Text('Name'),
-                subtitle: Text('Christopher Henry'),
+                subtitle: Text('Not Available'),
                 leading: Icon(CupertinoIcons.person_fill),
               ),
             ),

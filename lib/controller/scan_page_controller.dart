@@ -1,79 +1,15 @@
-import 'package:attendance_tracking/controller/works_page_controller.dart';
+import 'package:attendance_tracking/pages/camera_page.dart';
 import 'package:attendance_tracking/repositories/api_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:location/location.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ScanPageController extends GetxController {
-  Location location = Location();
-  bool _serviceEnabled=false;
-  PermissionStatus? _permissionGranted;
-  final locationData = Rx<LocationData?>(null);
   final RxBool isLoading = false.obs;
   final RxBool isScanning = false.obs;
   final ApiRepository apiRepository= ApiRepository();
 
-  @override
-  void onInit() {
-    super.onInit();
-    requestLocationPermission();
-  }
-
-  void requestLocationPermission() async{
-    isLoading.value=true;
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-    locationData.value = await location.getLocation();
-    isLoading.value = false;
-  }
-
-  Future<void> enrollUser(String uid) async{
+  void forward(String uid) async {
     isLoading.value = true;
-    if (locationData.value?.latitude != null && locationData.value?.longitude != null) {
-      Map<String, dynamic> jsonData = {
-        "company_uid": uid,
-        "start_at": DateTime.now().toIso8601String(),
-        "latitude": locationData.value!.latitude,
-        "longitude": locationData.value!.longitude,
-        "local_time":DateTime.now().toIso8601String(),
-      };
-      var result = await apiRepository.enrollUser(jsonData);
-      if (result['success']) {
-        var companyData = result['data'];
-        String companyId = companyData['id'].toString();
-        String companyName = companyData['name'] ?? 'Unknown';
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('company_uid', uid);
-        await prefs.setString('company_id', companyId);
-        await prefs.setString('company_name', companyName);
-        print("Response data: ${result['data']}");
-        WorksPageController worksPageController = Get.find<WorksPageController>();
-        worksPageController.fetchTasks();
-        Get.back();
-        Get.snackbar(
-          "Success",
-          "You can perform your task for this company.",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-        );
-      } else {
-        isLoading.value = false;
-        isScanning.value=true;
-      }
-    }
+    Get.back(result: uid);
   }
+
 }

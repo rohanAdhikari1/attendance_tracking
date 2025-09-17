@@ -47,50 +47,78 @@ class ScanPage extends StatelessWidget {
                 }
               },
             ),
-            // Positioned(
-            //   bottom: 20,
-            //   left: 20,
-            //   right: 20,
-            //   child: SafeArea(
-            //     child: Container(
-            //       padding: const EdgeInsets.all(12),
-            //       decoration: BoxDecoration(
-            //         color: Color.fromARGB(180, 0, 0, 0),
-            //         borderRadius: BorderRadius.circular(12),
-            //       ),
-            //       child: Column(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           Row(
-            //             children: [
-            //               const Text(
-            //                 'Latitude: ',
-            //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            //               ),
-            //               Text(
-            //                 controller.locationData.value?.latitude?.toString() ?? 'Unknown',
-            //                 style: const TextStyle(color: Colors.white),
-            //               ),
-            //             ],
-            //           ),
-            //           const SizedBox(height: 4),
-            //           Row(
-            //             children: [
-            //               const Text(
-            //                 'Longitude: ',
-            //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            //               ),
-            //               Text(
-            //                 controller.locationData.value?.longitude?.toString() ?? 'Unknown',
-            //                 style: const TextStyle(color: Colors.white),
-            //               ),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
+
+            Center(
+              child: SizedBox(
+                width: 300,
+                height: 300,
+                child: Stack(
+                  children: [
+                    // top-left corner
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Colors.white, width: 4),
+                            left: BorderSide(color: Colors.white, width: 4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // top-right corner
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Colors.white, width: 4),
+                            right: BorderSide(color: Colors.white, width: 4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // bottom-left corner
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.white, width: 4),
+                            left: BorderSide(color: Colors.white, width: 4),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // bottom-right corner
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: Colors.white, width: 4),
+                            right: BorderSide(color: Colors.white, width: 4),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
           ]
         );
       }

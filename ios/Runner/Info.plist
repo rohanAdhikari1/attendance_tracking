@@ -30,6 +30,8 @@
 		<string>Main</string>
 		<key>NSCameraUsageDescription</key>
         <string>This app uses the camera to scan QR codes.</string>
+        <key>io.flutter.embedded_views_preview</key>
+        <string>YES</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>

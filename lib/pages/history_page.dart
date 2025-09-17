@@ -3,120 +3,111 @@ import 'package:attendance_tracking/pages/detail/history_detail.dart'
 import 'package:flutter/material.dart';
 
 class HistoryPage extends StatelessWidget {
-  const HistoryPage({super.key});
+  final Map<String, dynamic>? enrollData;
+
+  const HistoryPage({super.key,this.enrollData});
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height;
+    final Map<String, dynamic> data = {
+      // "2025-09-02 10:59:09": {
+      //   "Biratnagar Branch": [
+      //     {
+      //       "cleaner_id": 1,
+      //       "site_id": 1,
+      //       "attendance_id": 3,
+      //       "task_id": 1,
+      //       "finish_time": "2025-09-02 10:59:09",
+      //       "site": {"id": 1, "name": "Biratnagar Branch"},
+      //       "task": {"id": 1, "name": "Check Task 2"}
+      //     }
+      //   ]
+      // }
+    };
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
         height: double.infinity,
-        child: Column(
-          children: [
-            Container(
-              height: deviceHeight * 0.05,
-              margin: const EdgeInsets.symmetric(horizontal: 15.0),
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 8,
-                    offset: Offset(0, 4),
+        child: ListView(
+          children: data.entries.map((dateEntry) {
+            String date = dateEntry.key.split(" ")[0]; // only date
+            Map<String, dynamic> companies = dateEntry.value;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Date Header
+                Container(
+                  width: double.infinity,
+                  color: Colors.grey.shade300,
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    date,
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                ],
-                // border: Border.all(color: Colors.amber[900]!),
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                'Work History',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-            ),
-            SizedBox(height: deviceHeight * 0.01),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.only(bottom: 20),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  final title = 'Company Name: Homepage UI';
-                  final date = 'Wrok Date: 08/03/2025';
-                  final time = 'Time: 05:30 P.M.';
-                  // final status = index == 2 ? 'Started' : 'Not Started';
+                ),
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0,
-                      vertical: 8.0,
+                // Company List
+                ...companies.entries.map((companyEntry) {
+                  String companyName = companyEntry.key;
+                  List<dynamic> tasks = companyEntry.value;
+
+                  int totalTasks = tasks.length;
+                  int finishedTasks = tasks
+                      .where((task) => task["finish_time"] != null)
+                      .length;
+
+                  return Card(
+                    margin: EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HistoryDetail(),
+                    elevation: 4,
+                    child: ExpansionTile(
+                      tilePadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      title: Row(
+                        children: [
+                          Icon(Icons.business, color: Colors.teal),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              companyName,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 8,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                          // border: Border.all(color: Colors.amber[900]!),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Title
-                            Text(
-                              title,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: deviceHeight * 0.01),
-
-                            // Description
-                            Text(
-                              date,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            SizedBox(height: deviceHeight * 0.01),
-                            Row(
-                              children: [
-                                Text(
-                                  time,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                        ],
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: LinearProgressIndicator(
+                          value: totalTasks == 0
+                              ? 0
+                              : finishedTasks / totalTasks,
+                          backgroundColor: Colors.grey.shade200,
+                          valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.teal),
                         ),
                       ),
+                      children: tasks.map((task) {
+                        bool finished = task["finish_time"] != null;
+                        return ListTile(
+                          leading: Icon(
+                            finished ? Icons.check_circle : Icons.radio_button_unchecked,
+                            color: finished ? Colors.green : Colors.red,
+                          ),
+                          title: Text(task["task"]["name"]),
+                          subtitle: finished
+                              ? Text("Finished at ${task["finish_time"]}")
+                              : Text("Pending"),
+                        );
+                      }).toList(),
                     ),
                   );
-                },
-              ),
-            ),
-          ],
+                }).toList(),
+              ],
+            );
+          }).toList(),
         ),
       ),
     );
