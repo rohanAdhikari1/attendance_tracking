@@ -9,7 +9,8 @@ class ApiService{
   final UserService _userService = UserService();
 
   ApiService() : _dio = Dio() {
-    _dio.options.baseUrl = 'http://192.168.100.153:8000/api/';
+    // _dio.options.baseUrl = 'http://192.168.100.153:8000/api/';
+    _dio.options.baseUrl = 'https://sms.westernbreezeau.com/api/';
     _dio.options.connectTimeout = Duration(seconds: 5);
     _dio.options.receiveTimeout = Duration(seconds: 3);
 

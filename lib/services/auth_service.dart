@@ -6,7 +6,7 @@ class AuthService {
   final UserService _userService = UserService();
 
   static final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://192.168.100.153:8000/api/',
+    baseUrl: 'https://sms.westernbreezeau.com/api/',
     connectTimeout: Duration(seconds: 5),
     receiveTimeout: Duration(seconds: 3),
     headers: {
@@ -27,11 +27,12 @@ class AuthService {
       if (response.statusCode == 200) {
         String token = response.data['token'];
         int id = response.data['user']?['id'];
-        String role = response.data['role']??'user';
+        String role = response.data['role']??'cleaner';
         await _userService.saveUserData(token,id,role);
         return {
           'message': 'Login successful',
           'type': MessageType.success,
+          'role' :role
         };
       } else {
         return {
@@ -40,7 +41,6 @@ class AuthService {
         };
       }
     }  on DioException catch (e){
-      print(e.response);
       return {
         'message': e.response?.data['error']?.toString() ?? 'A network error occurred.',
         'type': MessageType.error,

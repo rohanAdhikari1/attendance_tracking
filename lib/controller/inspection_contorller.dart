@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:attendance_tracking/pages/camera_page.dart';
 import 'package:attendance_tracking/services/user_service.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -12,6 +13,7 @@ class InspectionController extends GetxController {
   final UserService _userService = UserService();
   var isLoading = true.obs;
   var isUploading = false.obs;
+  var hasError = false.obs;
 
   @override
   void onInit() {
@@ -41,8 +43,12 @@ class InspectionController extends GetxController {
           onPageStarted: (url) {
             isLoading.value = true;
           },
-          onPageFinished: (url) {
+          onPageFinished: (url) async{
             isLoading.value = false;
+          },
+          onWebResourceError: (error) {
+            isLoading.value = false;
+            hasError.value = true;
           },
         ),
       )
@@ -52,10 +58,21 @@ class InspectionController extends GetxController {
           final Map<String, dynamic> data = jsonDecode(message.message);
           if (data['action'] == 'upload') {
             startUpload(data['record_id']);
+          }else if(data['action'] == 'finish'){
+            Get.back();
+            Get.snackbar(
+              "Success",
+              "Inspection completed successfully!",
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+              colorText: Colors.white,
+              margin: EdgeInsets.all(10),
+              duration: Duration(seconds: 3),
+            );
           }
         },
       )
-      ..loadRequest(Uri.parse("http://192.168.100.153:8000/startInspection"),
+      ..loadRequest(Uri.parse("https://sms.westernbreezeau.com/startInspection"),
         headers: {
           'Authorization': 'Bearer $token',
         },);

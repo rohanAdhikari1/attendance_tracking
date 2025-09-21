@@ -1,15 +1,9 @@
 import 'package:attendance_tracking/controller/home_page_controller.dart';
-import 'package:attendance_tracking/pages/camera_page.dart';
+import 'package:attendance_tracking/pages/AppLayout.dart';
 import 'package:attendance_tracking/pages/history_page.dart';
 import 'package:attendance_tracking/pages/inspection.dart';
 import 'package:attendance_tracking/pages/works_page.dart';
 import 'package:attendance_tracking/services/user_service.dart';
-import 'package:attendance_tracking/widgets/drawer/attendance_report.dart'
-    show AttendanceReport;
-import 'package:attendance_tracking/widgets/drawer/myprofile.dart'
-    show Myprofile;
-import 'package:attendance_tracking/widgets/drawer/unable_to_attend.dart'
-    show unableToAttend;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,10 +25,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
     return Obx(
           () =>
           Scaffold(
@@ -94,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     leading: const Icon(Icons.play_arrow),
                     title: const Text('Start Inspection'),
                     onTap: () {
-                      Get.to(()=>Inspection());
+                      Get.to(()=>AppLayout(child: Inspection()));
                     },
                   ),
                   // ListTile(

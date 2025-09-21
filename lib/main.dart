@@ -1,5 +1,7 @@
 import 'package:attendance_tracking/Pages/Auth/login.dart';
 import 'package:attendance_tracking/auth_controller.dart';
+import 'package:attendance_tracking/pages/AppLayout.dart';
+import 'package:attendance_tracking/pages/admin/admin_home_page.dart';
 import 'package:attendance_tracking/pages/home_page.dart';
 import 'package:attendance_tracking/pages/notification_page.dart';
 import 'package:attendance_tracking/pages/scan_page.dart';
@@ -23,12 +25,15 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       getPages: [
         GetPage(name: '/', page: () => const SplashLogic()),
-        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(name: '/home', page: () => AppLayout(child: HomePage())),
         GetPage(name: '/login', page: () => const Login()),
-        GetPage(name: '/scan', page: () => ScanPage()),
-        GetPage(name: '/notification', page: () => NotificationPage(),
-            transition: Transition.rightToLeft,
-            transitionDuration: const Duration(milliseconds: 300)),
+        GetPage(name: '/scan', page: () => AppLayout(child:ScanPage())),
+        GetPage(
+          name: '/notification',
+          page: () => AppLayout(child: NotificationPage()),
+          transition: Transition.rightToLeft,
+          transitionDuration: const Duration(milliseconds: 300),
+        ),
       ],
       debugShowCheckedModeBanner: false,
       home: SplashLogic(),
@@ -43,20 +48,27 @@ class SplashLogic extends StatelessWidget {
   Widget build(BuildContext context) {
     final authController = Get.find<AuthController>();
     return Obx(() {
-     if(authController.isOnline.value){
-       if (authController.isLoading.value) {
-         return const Scaffold(
-           body: Center(child: CircularProgressIndicator()),
-         );
-       } else {
-         FlutterNativeSplash.remove();
-         return authController.isLoggedIn.value
-             ? const HomePage()
-             : const Login();
-       }
-     }else{
-       return Placeholder();
-     }
+      if (authController.isLoading.value) {
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      } else {
+        FlutterNativeSplash.remove();
+          if (!authController.isLoggedIn.value) {
+            return const Login();
+          } else {
+            switch (authController.role.value) {
+              case 'cleaner':
+                return const AppLayout(child: HomePage());
+              case 'admin':
+                return const AppLayout(child:AdminHomePage());
+              case 'super_admin':
+                return const AppLayout(child:AdminHomePage());
+              case 'company_user':
+                return const AppLayout(child:AdminHomePage());
+              default:
+                return const Login();
+            }
+          }
+      }
     });
   }
 }

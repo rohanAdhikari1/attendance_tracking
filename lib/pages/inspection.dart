@@ -38,6 +38,27 @@ class Inspection extends StatelessWidget {
         backgroundColor: Colors.amber[900],
       ),
       body: Obx(() {
+        if (controller.hasError.value) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.error, color: Colors.red, size: 64),
+                SizedBox(height: 16),
+                Text(
+                  "Service Not Available",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  "The server is currently unreachable.\nPlease try again later.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          );
+        }
         if (controller.webViewController.value == null) {
           return const Center(child: CircularProgressIndicator());
         }
