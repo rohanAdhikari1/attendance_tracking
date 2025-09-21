@@ -11,7 +11,7 @@ class AdminHomePage extends StatefulWidget {
 }
 
 class _AdminHomePageState extends State<AdminHomePage> {
-  final List<String> pageNames = ['Inspection', 'History'];
+  final List<String> pageNames = ['Inspections', 'History'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
