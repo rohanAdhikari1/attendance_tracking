@@ -16,10 +16,10 @@ class InspectionModel {
   factory InspectionModel.fromJson(Map<String, dynamic> json) {
     return InspectionModel(
       id: json['id'],
-      title: json['name'] ?? 'Untitled',
-      siteName: json['name'] ?? 'Untitled',
+      title: json['title'] ?? 'Untitled',
+      siteName: json['site_name'] ?? 'Untitled',
       frequency: json['frequency'],
-      date: json['created_at'],
+      date: json['date'],
     );
   }
 }

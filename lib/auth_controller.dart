@@ -34,7 +34,9 @@ class AuthController extends GetxController {
     isLoggedIn.value = (userData['token']?.isNotEmpty ?? false) &&
         (userData['id'] != 0) &&
         (userData['role']?.isNotEmpty ?? false);
-    role.value = userData['role'];
+    if (isLoggedIn.value) {
+      role.value = userData['role'];
+    }
     isLoading.value = false;
   }
 }

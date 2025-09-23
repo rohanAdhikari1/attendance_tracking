@@ -3,20 +3,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
-class ApiRepository{
+class ApiRepository {
   final ApiService apiService = ApiService();
 
   Future<Map<String, dynamic>> _handleRequest(
-      Future<Response> Function() request, {
-        required bool expectStatus,
-        required Map<String, dynamic> Function(Map<String, dynamic> json) onSuccess,
-        String defaultError = "Something went wrong!",
-      }) async {
+    Future<Response> Function() request, {
+    required bool expectStatus,
+    required Map<String, dynamic> Function(Map<String, dynamic> json) onSuccess,
+    String defaultError = "Something went wrong!",
+  }) async {
     try {
       final response = await request();
-      print(response);
       final decodedJson = response.data as Map<String, dynamic>? ?? {};
-      final isValid = response.statusCode == 200 &&
+      final isValid =
+          response.statusCode == 200 &&
           decodedJson.isNotEmpty &&
           (!expectStatus || decodedJson['status'] == true);
 
@@ -40,10 +40,7 @@ class ApiRepository{
       _showError("Error", "An error occurred: ${e.toString()}");
     }
 
-    return {
-      'success': false,
-      'data': null,
-    };
+    return {'success': false, 'data': null};
   }
 
   void _showError(String title, String message) {
@@ -59,12 +56,9 @@ class ApiRepository{
   /// Check enrollment
   Future<Map<String, dynamic>> checkEnroll() async {
     return _handleRequest(
-          () => apiService.dio.get('check-enroll'),
+      () => apiService.dio.get('check-enroll'),
       expectStatus: false,
-      onSuccess: (json) => {
-        'success': true,
-        'data': json,
-      },
+      onSuccess: (json) => {'success': true, 'data': json},
       defaultError: "Failed to check enrollment",
     );
   }
@@ -72,23 +66,24 @@ class ApiRepository{
   /// Mark attendance
   Future<Map<String, dynamic>> markAttendance(dynamic jsonData) async {
     return _handleRequest(
-          () => apiService.dio.post('mark_attendance', data: jsonData, options: Options(
-            contentType: 'multipart/form-data',
-          ),),
+      () => apiService.dio.post(
+        'mark_attendance',
+        data: jsonData,
+        options: Options(contentType: 'multipart/form-data'),
+      ),
       expectStatus: true,
-      onSuccess: (json) => {
-        'success': true,
-        'data': json['result'],
-      },
+      onSuccess: (json) => {'success': true, 'data': json['result']},
       defaultError: "Failed to mark attendance",
     );
   }
 
   Future<Map<String, dynamic>> startWork(dynamic jsonData) async {
     return _handleRequest(
-          () => apiService.dio.post('start_work', data: jsonData,options: Options(
-            contentType: 'multipart/form-data',
-          ),),
+      () => apiService.dio.post(
+        'start_work',
+        data: jsonData,
+        options: Options(contentType: 'multipart/form-data'),
+      ),
       expectStatus: true,
       onSuccess: (json) => {
         'success': true,
@@ -101,14 +96,13 @@ class ApiRepository{
 
   Future<Map<String, dynamic>> finishWork(dynamic jsonData) async {
     return _handleRequest(
-          () => apiService.dio.post('finish_work', data: jsonData,options: Options(
-            contentType: 'multipart/form-data',
-          ),),
+      () => apiService.dio.post(
+        'finish_work',
+        data: jsonData,
+        options: Options(contentType: 'multipart/form-data'),
+      ),
       expectStatus: true,
-      onSuccess: (json) => {
-        'success': true,
-        'data': json['result'],
-      },
+      onSuccess: (json) => {'success': true, 'data': json['result']},
       defaultError: "Something Went Wrong!",
     );
   }
@@ -116,7 +110,7 @@ class ApiRepository{
   /// Fetch enrollment with task
   Future<Map<String, dynamic>> fetchEnrollMentWithTask() async {
     return _handleRequest(
-          () => apiService.dio.get('taskwithenrollment'),
+      () => apiService.dio.get('taskwithenrollment'),
       expectStatus: true,
       onSuccess: (json) => {
         'success': true,
@@ -124,6 +118,34 @@ class ApiRepository{
         'is_online': json['is_online'] ?? false, // only here
       },
       defaultError: "Failed to fetch enrollment with task",
+    );
+  }
+
+  /// Fetch Draft Inspections
+  Future<Map<String, dynamic>> fetchDraftInspections() async {
+    return _handleRequest(
+      () => apiService.dio.get('draft-inspections'),
+      expectStatus: false,
+      onSuccess: (json) => {'success': true, 'data': json['result']},
+      defaultError: "Failed to fetch draft inspections.",
+    );
+  }
+
+  Future<Map<String, dynamic>> fetchNotifications() async {
+    return _handleRequest(
+          () => apiService.dio.get('notifications'),
+      expectStatus: false,
+      onSuccess: (json) => {'success': true, 'data': json['result']},
+      defaultError: "Failed to fetch draft inspections.",
+    );
+  }
+
+  Future<Map<String, dynamic>> fetchWorkHistory() async {
+    return _handleRequest(
+          () => apiService.dio.get('work_history'),
+      expectStatus: false,
+      onSuccess: (json) => {'success': true, 'data': json['result']},
+      defaultError: "Failed to fetch draft inspections.",
     );
   }
 }

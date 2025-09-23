@@ -1,9 +1,11 @@
+import 'package:attendance_tracking/models/InspectionModel.dart';
 import 'package:attendance_tracking/repositories/api_repository.dart';
 import 'package:get/get.dart';
 
 class DraftInspectionController extends GetxController {
   var isLoading = false.obs;
   final ApiRepository apiRepository = ApiRepository();
+  var drafts = <InspectionModel>[].obs;
 
   @override
   void onReady() {
@@ -14,17 +16,13 @@ class DraftInspectionController extends GetxController {
   Future<void> getDraftInspections() async {
     isLoading.value = true;
     try {
-      // var response = await apiRepository.fetchEnrollMentWithTask();
-      // if (response['success'] == true) {
-      //   List data = response['data'];
-      //   if(response['is_online']){
-      //     tasks.value = data.map((json) => Task.fromJson(json)).toList();
-      //     isOnline.value=true;
-      //   }else{
-      //     enrollments.value = data.map((json) => Enrollment.fromJson(json)).toList();
-      //     isOnline.value=false;
-      //   }
-      // }
+      var response = await apiRepository.fetchDraftInspections();
+      if (response['success'] == true) {
+        List data = response['data'];
+        drafts.value = data
+            .map((json) => InspectionModel.fromJson(json))
+            .toList();
+      }
     } catch (e) {
       Get.snackbar("Error", e.toString());
     } finally {
@@ -32,7 +30,7 @@ class DraftInspectionController extends GetxController {
     }
   }
 
-  void continueDraftInspection(){
+  void continueDraftInspection() {
     //TODO: Coninue taskInspection With report_ID
   }
 }

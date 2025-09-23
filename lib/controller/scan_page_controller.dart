@@ -1,4 +1,3 @@
-import 'package:attendance_tracking/pages/camera_page.dart';
 import 'package:attendance_tracking/repositories/api_repository.dart';
 import 'package:get/get.dart';
 

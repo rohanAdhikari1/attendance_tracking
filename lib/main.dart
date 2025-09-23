@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
-void main() async {
+void main(){
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  Get.put(AuthController());
   runApp(const MyApp());
 }
 
@@ -46,7 +45,7 @@ class SplashLogic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authController = Get.find<AuthController>();
+    final authController = Get.put(AuthController());
     return Obx(() {
       if (authController.isLoading.value) {
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
